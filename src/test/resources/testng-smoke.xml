@@ -3,7 +3,8 @@
 <suite name="smoke">
     <test name="LoginPageTest" verbose="1">
         <classes>
-            <class name="org.example.test.LoginPageTest" />
+            <!--<class name="org.example.test.LoginPageTest" />-->
+            <class name="org.example.test.InventoryPageTest" />
         </classes>
     </test>
 </suite>
