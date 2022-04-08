@@ -3,8 +3,11 @@
 <suite name="smoke">
     <test name="LoginPageTest" verbose="1">
         <classes>
-            <!--<class name="org.example.test.LoginPageTest" />-->
-            <class name="org.example.test.InventoryPageTest" />
+            <class name="org.example.test.LoginPageTest" />
+            <class name="org.example.test.AddRemoveThingsToBasketTest" />
+            <class name="org.example.test.ReactMenuTest" />
+            <class name="org.example.test.SortProductsTest" />
+            <class name="org.example.test.OrderTest" />
         </classes>
     </test>
 </suite>

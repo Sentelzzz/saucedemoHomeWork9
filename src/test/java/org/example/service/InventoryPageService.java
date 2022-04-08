@@ -1,58 +1,92 @@
 package org.example.service;
 
-import org.example.model.Inventory;
+import org.example.page.CartPage;
 import org.example.page.InventoryPage;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryPageService extends LoginPageService {
 
-    private Inventory inventory = new Inventory();
     private InventoryPage inventoryPage = new InventoryPage();
-    static Integer numberOfPositions;
+    private CartPage cartPage = new CartPage();
 
-    public int getNumberOfPositions() {
-        return numberOfPositions;
+    @Override
+    public InventoryPage login() {
+        return super.login();
     }
 
-
-    public InventoryPage addToCartBackPack() {
-        numberOfPositions = 0;
-        inventoryPage = login();
-        inventoryPage.clickButtonAddSauceBackPack();
-        numberOfPositions++;
-        return new InventoryPage();
+    public void addToCart(int number) {
+        inventoryPage.addToCart(number);
     }
 
-    public String getText() {
-        return inventoryPage.getTextOfNumberThingsInCart();
+    public String getActualNumberInCart() {
+        return inventoryPage.getTextNumberOfThingsInCart();
     }
 
-    public InventoryPage addToCartBikeLight() {
-        inventoryPage = login();
-        numberOfPositions = 0;
-        inventoryPage.clickButtonAddSauceBikeLight();
-        numberOfPositions++;
-        return new InventoryPage();
+    public void removeToCart(int number) {
+        inventoryPage.removeToCart(number);
     }
 
-    public void removeBikeLight() {
-        inventoryPage.clickButtonRemoveSauceBikeLight();
-        numberOfPositions--;
+    public void openReactMenu() {
+        inventoryPage.clickOnReactMenuButton();
     }
 
-    public void addTwoThingsRemoveOne() {
-        inventoryPage = login();
-        numberOfPositions = 0;
-        inventoryPage.clickButtonAddSauceBackPack();
-        numberOfPositions++;
-        inventoryPage.clickButtonAddSauceBikeLight();
-        numberOfPositions++;
-        inventoryPage.clickButtonRemoveSauceBikeLight();
-        numberOfPositions--;
+    public String getTextOfFieldsReactMenu() {
+        return inventoryPage.getTextOfFieldsOfReactMenu();
     }
 
-    public InventoryPage openReactMenu() {
-        inventoryPage.clickButtonReactMenu();
-        return new InventoryPage();
+    public void closeReactMenu() {
+        inventoryPage.clickOnReactMenuCrossButton();
+    }
+
+    public String checkOpenOrCloseReactMenu() {
+        return inventoryPage.getTextAboutReactMenuState();
+    }
+
+    public void sortByAtoZ() {
+        Select select = new Select(inventoryPage.getFilterSelect());
+        select.selectByVisibleText("Name (A to Z)");
+    }
+
+    public List<String> getProductNameList() {
+        List<String> productsList = new ArrayList<>();
+        for (int i = 0; i < inventoryPage.getProductsList().size(); i++) {
+            productsList.add(inventoryPage.getProductsList().get(i).getText());
+        }
+        return productsList;
+    }
+
+    public void sortByZtoA() {
+        Select select = new Select(inventoryPage.getFilterSelect());
+        select.selectByVisibleText("Name (Z to A)");
+    }
+
+    public List<Double> getProductsPriceList() {
+        List<Double> productsPriceList = new ArrayList<>();
+        for (int i = 0; i < inventoryPage.getProductPriceList().size(); i++) {
+            productsPriceList.add(Double.parseDouble(inventoryPage.getProductPriceList().get(i).getText().replaceAll("[^0-9.]", "")));
+        }
+        return productsPriceList;
+    }
+
+    public void sortByLowToHigh() {
+        Select select = new Select(inventoryPage.getFilterSelect());
+        select.selectByVisibleText("Price (low to high)");
+    }
+
+    public void sortByHighToLow() {
+        Select select = new Select(inventoryPage.getFilterSelect());
+        select.selectByVisibleText("Price (high to low)");
+    }
+
+    public void clickOnCartButton() {
+        inventoryPage.clickOnCart();
+    }
+
+    public void clickOnCheckoutButton() {
+        cartPage.clickOnCheckoutButton();
     }
 
 
