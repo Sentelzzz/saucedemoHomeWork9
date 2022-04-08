@@ -8,7 +8,11 @@ import org.testng.annotations.BeforeTest;
 public class BaseTest {
 
     protected WebDriver driver;
+    protected int cartProductsAmount = 6; // Not more than 6!
 
+    public int getCartProductsAmount() {
+        return cartProductsAmount;
+    }
 
     @BeforeTest
     public void setUp() {
