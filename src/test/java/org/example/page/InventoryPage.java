@@ -37,6 +37,13 @@ public class InventoryPage extends Page {
     @FindBy (xpath = "//div[@class='inventory_item_price']")
     private List<WebElement> productPriceList;
 
+    @FindBy (xpath = "//button[text()='Remove']/ancestor::div[@class='inventory_item_description']/div/a/div[@class='inventory_item_name']")
+    private List<WebElement> addedProducts;
+
+    public List<WebElement> getAddedProducts() {
+        return addedProducts;
+    }
+
     public void clickOnCart() {
         cartLinkA.click();
     }

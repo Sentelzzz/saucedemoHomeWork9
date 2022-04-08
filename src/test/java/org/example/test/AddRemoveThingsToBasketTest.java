@@ -9,20 +9,22 @@ import static java.lang.Integer.parseInt;
 public class AddRemoveThingsToBasketTest extends BaseTest {
 
     private InventoryPageService inventoryPageService = new InventoryPageService();
-    private int indexAddToCartButton = 1;
-    private final static int indexRemoveToCartButton = 0;
-    private final Integer numberFordAddedProductToCart = 1;
+    private BaseTest baseTest = new BaseTest();
+    private final static int indexProductInList = 0;
     private String initialNumberOfProductInCart;
     private String actualNumberOfProductInCart;
     private String expectedNumberOfProductInCart;
+
 
     @Test
     public void addToCartTest() {
         inventoryPageService.login();
         initialNumberOfProductInCart = inventoryPageService.getActualNumberInCart();
-        inventoryPageService.addToCart(indexAddToCartButton);
+        for (int i = 0; i < baseTest.getCartProductsAmount(); i++) {
+            inventoryPageService.addToCart(indexProductInList);
+        }
         actualNumberOfProductInCart = inventoryPageService.getActualNumberInCart();
-        expectedNumberOfProductInCart = initialNumberOfProductInCart + numberFordAddedProductToCart;
+        expectedNumberOfProductInCart = initialNumberOfProductInCart + baseTest.getCartProductsAmount();
         Assert.assertEquals(actualNumberOfProductInCart, expectedNumberOfProductInCart, "Actual number of product doesn't " +
                 "match with expected number in cart!");
     }
@@ -30,9 +32,11 @@ public class AddRemoveThingsToBasketTest extends BaseTest {
     @Test (dependsOnMethods = "addToCartTest")
     public void removeToCartTest() {
         initialNumberOfProductInCart = inventoryPageService.getActualNumberInCart();
-        inventoryPageService.removeToCart(indexRemoveToCartButton);
+        for (int i = 0; i < baseTest.getCartProductsAmount(); i++) {
+            inventoryPageService.removeToCart(indexProductInList);
+        }
         actualNumberOfProductInCart = correctNumberOfProductInCart(inventoryPageService.getActualNumberInCart());
-        int numberOfProductInCart = (parseInt(initialNumberOfProductInCart) - numberFordAddedProductToCart);
+        int numberOfProductInCart = (parseInt(initialNumberOfProductInCart) - baseTest.getCartProductsAmount());
         expectedNumberOfProductInCart = Integer.toString(numberOfProductInCart);
         Assert.assertEquals(actualNumberOfProductInCart, expectedNumberOfProductInCart, "Actual number of product doesn't " +
                 "match with expected number in cart!");
@@ -43,7 +47,6 @@ public class AddRemoveThingsToBasketTest extends BaseTest {
             return "0";
         } else return numberOfItemsInCart;
     }
-
 
 
 }

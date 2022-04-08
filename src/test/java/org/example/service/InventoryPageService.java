@@ -58,6 +58,14 @@ public class InventoryPageService extends LoginPageService {
         return productsList;
     }
 
+    public List<String> getAddedProducts() {
+        List<String> addedProductsList = new ArrayList<>();
+        for (int i = 0; i < inventoryPage.getAddedProducts().size(); i++) {
+            addedProductsList.add(inventoryPage.getAddedProducts().get(i).getText());
+        }
+        return addedProductsList;
+    }
+
     public void sortByZtoA() {
         Select select = new Select(inventoryPage.getFilterSelect());
         select.selectByVisibleText("Name (Z to A)");
