@@ -2,6 +2,7 @@ package org.example.test;
 
 import org.example.service.InventoryPageService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static java.lang.Integer.parseInt;
@@ -15,6 +16,10 @@ public class AddRemoveThingsToBasketTest extends BaseTest {
     private String actualNumberOfProductInCart;
     private String expectedNumberOfProductInCart;
 
+    @BeforeClass
+    public void setUp() {
+        inventoryPageService = new InventoryPageService();
+    }
 
     @Test
     public void addToCartTest() {

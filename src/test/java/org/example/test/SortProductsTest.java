@@ -2,6 +2,7 @@ package org.example.test;
 
 import org.example.service.InventoryPageService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -14,6 +15,11 @@ public class SortProductsTest extends BaseTest {
     private List<String> expectedListNameOfProducts;
     private List<Double> actualListPriceOfProducts;
     private List<Double> expectedListPriceOfProducts;
+
+    @BeforeClass
+    public void setUp() {
+        inventoryPageService = new InventoryPageService();
+    }
 
     @Test
     public void sortAtoZTest() {

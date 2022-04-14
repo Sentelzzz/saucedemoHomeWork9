@@ -3,12 +3,18 @@ package org.example.test;
 import org.example.page.InventoryPage;
 import org.example.service.LoginPageService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
 public class LoginPageTest extends BaseTest {
 
-    private LoginPageService loginPageService = new LoginPageService();
+    private LoginPageService loginPageService;
+
+    @BeforeClass
+    public void setUp() {
+        loginPageService = new LoginPageService();
+    }
 
     @Test
     public void loginTest() {
