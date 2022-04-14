@@ -2,6 +2,7 @@ package org.example.test;
 
 import org.example.service.*;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -24,14 +25,20 @@ public class OrderTest extends BaseTest {
     private Double expectedTotalPrice;
     private final static String NAME_OF_CHECKOUT_COMPLETE_PAGE = "CHECKOUT: COMPLETE!";
 
+    @BeforeClass
+    public void setUp() {
+        inventoryPageService = new InventoryPageService();
+    }
+
     @Test
-    public void checkProductInCart() {
+    public void checkProductInCart() throws InterruptedException {
         inventoryPageService.login();
         for (int i = 0; i < baseTest.getCartProductsAmount(); i++) {
             inventoryPageService.addToCart(0);
         }
         expectedProductInCart = inventoryPageService.getAddedProducts();
         inventoryPageService.clickOnCartButton();
+        Thread.sleep(5000);
         actualProductInCart = cartPageService.getCartProductsNameList();
         Assert.assertEquals(actualProductInCart, expectedProductInCart, "Products don't match!");
     }

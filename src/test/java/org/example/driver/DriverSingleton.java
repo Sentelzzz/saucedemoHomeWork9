@@ -8,36 +8,31 @@ import org.openqa.selenium.opera.OperaDriver;
 
 public class DriverSingleton {
 
-    private static WebDriver driver;
+    private static ThreadLocal<DriverSingleton> instance = new ThreadLocal<>();
+
+    private WebDriver driver;
 
     private DriverSingleton() {
+        driver = WebDriverFactory.getWebDriver();
     }
 
-    public static WebDriver getDriver() {
-        if (driver == null) {
-            switch (System.getProperty("browser")) {
-                case "firefox": {
-                    WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
-                    break;
-                }
-                case "opera": {
-                    WebDriverManager.operadriver().setup();
-                    driver = new OperaDriver();
-                    break;
-                }
-                default: {
-                    WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
-                }
-            }
-            driver.manage().window().maximize();
+    public static synchronized DriverSingleton getInstance() {
+        if (instance.get() == null) {
+            instance.set(new DriverSingleton());
         }
+        return instance.get();
+    }
+
+    public WebDriver getDriver() {
         return driver;
     }
 
-    public static void closeDriver() {
-        driver.quit();
-        driver = null;
+    public void closeDriver() {
+        try {
+            driver.quit();
+            driver = null;
+        } finally {
+            instance.remove();
+        }
     }
 }

@@ -6,11 +6,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class Page {
 
-    protected WebDriver driver = DriverSingleton.getDriver();
+    protected WebDriver driver = DriverSingleton.getInstance().getDriver();
 
     protected Page() {
         PageFactory.initElements(driver, this);
-
     }
 
 }

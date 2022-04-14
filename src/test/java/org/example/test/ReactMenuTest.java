@@ -2,6 +2,7 @@ package org.example.test;
 
 import org.example.service.InventoryPageService;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ReactMenuTest extends BaseTest {
@@ -9,6 +10,11 @@ public class ReactMenuTest extends BaseTest {
     private InventoryPageService inventoryPageService = new InventoryPageService();
     private String expectedFieldsReactMenu;
     private String actualFieldsReactMenu;
+
+    @BeforeClass
+    public void setUp() {
+        inventoryPageService = new InventoryPageService();
+    }
 
     @Test
     public void reactMenuFieldsTest() {
